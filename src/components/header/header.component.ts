@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CartService } from '../../services/cart.service';
+import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -24,6 +25,7 @@ import { Observable } from 'rxjs';
             <a routerLink="/products" routerLinkActive="active">Products</a>
             <a routerLink="/best-offers" routerLinkActive="active">Best Offers</a>
             <a routerLink="/contact" routerLinkActive="active">Contact</a>
+            <a routerLink="/admin" routerLinkActive="active" *ngIf="isAdmin">Admin</a>
           </nav>
           
           <div class="header-actions">
@@ -74,7 +76,7 @@ import { Observable } from 'rxjs';
     
     .nav-menu {
       display: flex;
-      gap: 2rem;
+      gap: 1rem;
       align-items: center;
     }
     
@@ -158,10 +160,18 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   cartCount$: Observable<number>;
-
-  constructor(private cartService: CartService) {
+  isAdmin: boolean = false;
+  
+  constructor(
+    private cartService: CartService,
+    private authService: AuthService
+  ) {
     this.cartCount$ = this.cartService.getCartCount();
   }
-
-  ngOnInit(): void {}
+  
+  ngOnInit(): void {
+    this.authService.getCurrentUser().subscribe(user => {
+      this.isAdmin = user?.isAdmin || false;
+    });
+  }
 }

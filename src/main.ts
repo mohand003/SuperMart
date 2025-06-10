@@ -15,6 +15,31 @@ import { PaymentComponent } from './pages/payment/payment.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ContactComponent } from './pages/contact/contact.component';
 
+// Import admin components
+import { AdminDashboardComponent } from './pages/admin/admin-dashboard.component';
+import { ProductManagementComponent } from './pages/admin/product-management.component';
+import { ProductFormComponent } from './pages/admin/product-form.component';
+import { AdminLoginComponent } from './pages/admin/admin-login.component';
+import { CategoryManagementComponent } from './pages/admin/category-management.component';
+import { StoreSettingsComponent } from './pages/admin/store-settings.component';
+
+// Import auth guard
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
+
+// Admin guard function
+const adminGuard = () => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  
+  if (authService.isAdmin()) {
+    return true;
+  }
+  
+  return router.parseUrl('/admin/login');
+};
+
 const routes = [
   { path: '', component: HomeComponent },
   { path: 'categories', component: CategoriesComponent },
@@ -24,6 +49,14 @@ const routes = [
   { path: 'payment', component: PaymentComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'contact', component: ContactComponent },
+  // Admin routes
+  { path: 'admin', component: AdminDashboardComponent, canActivate: [adminGuard] },
+  { path: 'admin/products', component: ProductManagementComponent, canActivate: [adminGuard] },
+  { path: 'admin/products/new', component: ProductFormComponent, canActivate: [adminGuard] },
+  { path: 'admin/products/edit/:id', component: ProductFormComponent, canActivate: [adminGuard] },
+  { path: 'admin/categories', component: CategoryManagementComponent, canActivate: [adminGuard] },
+  { path: 'admin/settings', component: StoreSettingsComponent, canActivate: [adminGuard] },
+  { path: 'admin/login', component: AdminLoginComponent },
   { path: '**', redirectTo: '' }
 ];
 

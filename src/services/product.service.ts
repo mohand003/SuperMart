@@ -146,4 +146,74 @@ export class ProductService {
       product.category.toLowerCase().includes(searchTerm)
     );
   }
+
+  // New admin methods for product management
+  addProduct(product: Omit<Product, 'id'>): Product {
+    const newId = Math.max(...this.products.map(p => p.id), 0) + 1;
+    const newProduct = { ...product, id: newId };
+    
+    this.products.push(newProduct);
+    this.productsSubject.next([...this.products]);
+    
+    return newProduct;
+  }
+
+  updateProduct(updatedProduct: Product): Product | undefined {
+    const index = this.products.findIndex(p => p.id === updatedProduct.id);
+    
+    if (index !== -1) {
+      this.products[index] = updatedProduct;
+      this.productsSubject.next([...this.products]);
+      return updatedProduct;
+    }
+    
+    return undefined;
+  }
+
+  deleteProduct(id: number): boolean {
+    const initialLength = this.products.length;
+    this.products = this.products.filter(product => product.id !== id);
+    
+    if (initialLength !== this.products.length) {
+      this.productsSubject.next([...this.products]);
+      return true;
+    }
+    
+    return false;
+  }
+
+  // Category management methods
+  addCategory(category: Omit<Category, 'id'>): Category {
+    const newId = Math.max(...this.categories.map(c => c.id), 0) + 1;
+    const newCategory = { ...category, id: newId };
+    
+    this.categories.push(newCategory);
+    this.categoriesSubject.next([...this.categories]);
+    
+    return newCategory;
+  }
+
+  updateCategory(updatedCategory: Category): Category | undefined {
+    const index = this.categories.findIndex(c => c.id === updatedCategory.id);
+    
+    if (index !== -1) {
+      this.categories[index] = updatedCategory;
+      this.categoriesSubject.next([...this.categories]);
+      return updatedCategory;
+    }
+    
+    return undefined;
+  }
+
+  deleteCategory(id: number): boolean {
+    const initialLength = this.categories.length;
+    this.categories = this.categories.filter(category => category.id !== id);
+    
+    if (initialLength !== this.categories.length) {
+      this.categoriesSubject.next([...this.categories]);
+      return true;
+    }
+    
+    return false;
+  }
 }

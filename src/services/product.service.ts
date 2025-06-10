@@ -111,7 +111,7 @@ export class ProductService {
     { id: 2, name: 'Vegetables', image: 'https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&w=400', productCount: 22 },
     { id: 3, name: 'Dairy', image: 'https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg?auto=compress&cs=tinysrgb&w=400', productCount: 18 },
     { id: 4, name: 'Bakery', image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400', productCount: 12 },
-    { id: 5, name: 'Meat', image: 'https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=400', productCount: 25 },
+    { id: 5, name: 'Meat', image: 'https://media.istockphoto.com/id/469354734/photo/fresh-and-raw-meat-sirloin-medallions-steaks.jpg?s=612x612&w=0&k=20&c=OH-FtjIgFS2psxomUDTZ450Zc35VvyZCQP2w64cbl_4=', productCount: 25 },
     { id: 6, name: 'Seafood', image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400', productCount: 16 }
   ];
 

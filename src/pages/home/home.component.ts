@@ -13,6 +13,14 @@ import { ProductCardComponent } from '../../components/product-card/product-card
     <div class="home-page fade-in">
       <!-- Hero Section -->
       <section class="hero">
+        <div class="animated-background">
+          <div class="bubble bubble-1"></div>
+          <div class="bubble bubble-2"></div>
+          <div class="bubble bubble-3"></div>
+          <div class="bubble bubble-4"></div>
+          <div class="bubble bubble-5"></div>
+          <div class="bubble bubble-6"></div>
+        </div>
         <div class="container">
           <div class="hero-content">
             <h1>Fresh Groceries Delivered to Your Door</h1>
@@ -90,12 +98,114 @@ import { ProductCardComponent } from '../../components/product-card/product-card
   `,
   styles: [`
     .hero {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
       color: white;
       padding: 4rem 0;
       min-height: 600px;
       display: flex;
       align-items: center;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-size: cover;
+      background-position: center;
+      filter: blur(8px) brightness(60%);
+      z-index: -1;
+    }
+    
+    .animated-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 8s infinite ease-in-out;
+    }
+    
+    .bubble-1 {
+      width: 80px;
+      height: 80px;
+      left: 10%;
+      top: 20%;
+      animation-delay: 0s;
+    }
+    
+    .bubble-2 {
+      width: 120px;
+      height: 120px;
+      right: 15%;
+      top: 40%;
+      animation-delay: 1s;
+    }
+    
+    .bubble-3 {
+      width: 60px;
+      height: 60px;
+      left: 30%;
+      bottom: 30%;
+      animation-delay: 2s;
+    }
+    
+    .bubble-4 {
+      width: 100px;
+      height: 100px;
+      right: 30%;
+      bottom: 20%;
+      animation-delay: 3s;
+    }
+    
+    .bubble-5 {
+      width: 70px;
+      height: 70px;
+      left: 60%;
+      top: 15%;
+      animation-delay: 4s;
+    }
+    
+    .bubble-6 {
+      width: 90px;
+      height: 90px;
+      left: 5%;
+      bottom: 10%;
+      animation-delay: 5s;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.5;
+      }
+      25% {
+        transform: translateY(-20px) translateX(10px);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(0) translateX(20px);
+        opacity: 0.6;
+      }
+      75% {
+        transform: translateY(20px) translateX(10px);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.5;
+      }
     }
     
     .hero .container {
@@ -103,6 +213,8 @@ import { ProductCardComponent } from '../../components/product-card/product-card
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
     
     .hero-content h1 {
@@ -130,6 +242,12 @@ import { ProductCardComponent } from '../../components/product-card/product-card
       object-fit: cover;
       border-radius: 20px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      transition: transform 0.8s ease;
+      transform-style: preserve-3d;
+    }
+    
+    .hero-image:hover img {
+      transform: scale(115%);
     }
     
     .section-title {
